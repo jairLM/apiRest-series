@@ -1,13 +1,15 @@
 package com.company.backend.service;
 
-import java.util.List;
 
-import com.company.backend.model.Serie;
+import org.springframework.http.ResponseEntity;
+
+
+import com.company.backend.response.SerieResponseRest;
 
 public interface ISerieService {
 
-	public List<Serie> getAllSeries();	
+	public ResponseEntity<SerieResponseRest> getAllSeries();	
 	
-	public Serie getSerieById(Long id);
+	public ResponseEntity<SerieResponseRest> getSerieById(long id);
 	
 }

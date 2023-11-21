@@ -1,13 +1,16 @@
 package com.company.backend.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.company.backend.model.Serie;
+
+import com.company.backend.response.SerieResponseRest;
 import com.company.backend.service.ISerieService;
 
 
@@ -20,8 +23,14 @@ public class SerieRestController {
 	
 	
 	@GetMapping("/series")
-	public List<Serie> 	getSeriesRequest(){
-		List<Serie> response = serieService.getAllSeries();
+	public ResponseEntity<SerieResponseRest> getSeriesRequest(){
+		ResponseEntity<SerieResponseRest> response = serieService.getAllSeries();
+		return response;
+	}
+	
+	@GetMapping("/series/{id}")
+	public ResponseEntity<SerieResponseRest> getSerieByIdRequest(@PathVariable Long id){
+		ResponseEntity<SerieResponseRest> response = serieService.getSerieById(id);
 		return response;
 	}
 	

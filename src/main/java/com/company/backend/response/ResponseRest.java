@@ -14,7 +14,7 @@ public class ResponseRest {
 	public void setMetadata(String type, String code, String data){
 		HashMap<String , String> mapa = new HashMap<String, String>();
 		
-		mapa.put("Tipo", type);
+		mapa.put("Type", type);
 		mapa.put("Code", code);
 		mapa.put("Data", data);
 		
