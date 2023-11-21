@@ -6,14 +6,14 @@ import com.company.backend.model.Serie;
 
 public class SerieResponse {
 
-	private List<Serie> serie;
+	private List<Serie> series;
 
 	public List<Serie> getSerie() {
-		return serie;
+		return series;
 	}
 
-	public void setSerie(List<Serie> serie) {
-		this.serie = serie;
+	public void setSerie(List<Serie> series) {
+		this.series = series;
 	}
 	
 	

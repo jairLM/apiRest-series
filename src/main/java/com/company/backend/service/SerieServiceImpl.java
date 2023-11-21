@@ -49,7 +49,7 @@ public class SerieServiceImpl implements ISerieService {
 	@Transactional(readOnly = true)
 	public ResponseEntity<SerieResponseRest> getSerieById(long id) {
 		
-		log.info("Executinfçg setSerieById");
+		log.info("Executing setSerieById");
 		List<Serie> list = new ArrayList<Serie>();
 		SerieResponseRest response = new SerieResponseRest();		
 			
@@ -60,6 +60,7 @@ public class SerieServiceImpl implements ISerieService {
 			if (serie != null) {				
 				list.add(serie);
 				response.getSerieResponse().setSerie(list);
+				response.setMetadata("Response OK", "00", "successful response");
 			}else {
 				log.error("Serie by id request failed");
 				response.setMetadata("Failed response", "-1", "Serie not found");
@@ -72,6 +73,41 @@ public class SerieServiceImpl implements ISerieService {
 			return new ResponseEntity<SerieResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<SerieResponseRest>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<SerieResponseRest> createSerie(Serie serie) {
+		
+		log.info("Executing createSerie");
+		List<Serie> list = new ArrayList<Serie>();
+		SerieResponseRest response = new SerieResponseRest();
+		
+		try {
+			list.add(serie);
+			response.getSerieResponse().setSerie(list);
+			response.setMetadata("Response OK", "00", "successful response");			
+			
+		} catch (Exception e) {
+			log.error("Error response. Uncreated serie" , e.getMessage());
+			e.getStackTrace();
+			return new ResponseEntity<SerieResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+		
+		return new ResponseEntity<SerieResponseRest>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<SerieResponseRest> updateSerie(Serie serie, Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<SerieResponseRest> deleteSerie(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
