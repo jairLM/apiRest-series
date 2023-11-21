@@ -23,13 +23,13 @@ public class SerieServiceImpl implements ISerieService {
 	@Transactional(readOnly = true)
 	public List<Serie> getAllSeries() {
 		try {
-			log.info("ejecutando");
+			log.info("ejecutando getallseries");
 			List<Serie> series = (List<Serie>) serieDao.findAll();
 			return series;
 			
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			log.error(e.getMessage());
 		}
 		
 		return null;

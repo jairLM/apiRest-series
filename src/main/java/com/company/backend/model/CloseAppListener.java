@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.company.backend.dao.ISerieDao;
 
-@Component
+@Component //esta clase se crea para borrar los datos al cerrar la app de la base de datos
 public class CloseAppListener implements ApplicationListener<ContextClosedEvent>{
 
 	@Autowired
