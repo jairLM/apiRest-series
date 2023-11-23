@@ -27,7 +27,8 @@ public class HttpConfigSecurity {
 				
 				authConfig
 					.requestMatchers(HttpMethod.GET, "/v1/series").permitAll()
-					.requestMatchers(HttpMethod.POST, "/v1/series").permitAll();
+					.requestMatchers(HttpMethod.POST, "/v1/series").permitAll()
+					.requestMatchers(HttpMethod.PUT, "/v1/series/**").permitAll();
 					
 					;
 				

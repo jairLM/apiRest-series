@@ -40,11 +40,13 @@ public class SecurityBeansInjector {
 	}
 	
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	 PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
-	@Bean UserDetailsService userDetailsService() {
+	@Bean
+	
+	UserDetailsService userDetailsService() {
 		return username -> {
 			return userRepository.findByUsername(username)
 						.orElseThrow(()-> new RuntimeException("user not found"));

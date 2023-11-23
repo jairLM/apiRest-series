@@ -2,6 +2,7 @@ package com.company.backend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,8 +102,36 @@ public class SerieServiceImpl implements ISerieService {
 
 	@Override
 	public ResponseEntity<SerieResponseRest> updateSerie(Serie serie, Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("Executing updateSerie");
+		SerieResponseRest response = new SerieResponseRest();
+		List<Serie> serieChanged = new ArrayList<Serie>();
+		
+		Optional<Serie> serieFound = serieDao.findById(id);
+		if (serieFound.isPresent()) {
+			try {
+				serieFound.get().setName(serie.getName());
+				serieFound.get().setReleaseYear(serie.getReleaseYear());
+				serieFound.get().setRating(serie.getRating());
+				serieFound.get().setDescription(serie.getDescription());
+				
+				serieDao.save(serieFound.get());
+				
+				serieChanged.add(serieFound.get());
+				response.getSerieResponse().setSerie(serieChanged);
+				response.setMetadata("Response OK", "00", "successful response");	
+				
+			} catch (Exception e) {
+				log.error("Error response. Unchanged series" , e.getMessage());
+				e.getStackTrace();
+				return new ResponseEntity<SerieResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}else {
+			log.error("Error, Serie not found");			
+			return new ResponseEntity<SerieResponseRest>(response, HttpStatus.NOT_FOUND);
+		}
+		
+		
+		return new ResponseEntity<SerieResponseRest>(response, HttpStatus.OK);
 	}
 
 	@Override
