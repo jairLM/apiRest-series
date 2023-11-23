@@ -109,6 +109,7 @@ public class SerieServiceImpl implements ISerieService {
 		Optional<Serie> serieFound = serieDao.findById(id);
 		if (serieFound.isPresent()) {
 			try {
+				serieFound.get().setId(serie.getId());
 				serieFound.get().setName(serie.getName());
 				serieFound.get().setReleaseYear(serie.getReleaseYear());
 				serieFound.get().setRating(serie.getRating());
@@ -136,8 +137,35 @@ public class SerieServiceImpl implements ISerieService {
 
 	@Override
 	public ResponseEntity<SerieResponseRest> deleteSerie(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("Executing deleteSerie");
+		SerieResponseRest response = new SerieResponseRest();
+		List<Serie> serieDeleted = new ArrayList<Serie>();
+		
+		Optional<Serie> serieFound = serieDao.findById(id);
+		
+		if (serieFound.isPresent()) {
+			try {
+				
+				serieDao.delete(serieFound.get());
+				
+				serieDeleted.add(serieFound.get());
+				response.getSerieResponse().setSerie(serieDeleted);
+				response.setMetadata("Response OK", "00", "successful response");	
+			
+				
+			} catch (Exception e) {
+				log.error("Error response. Undeleted serie" , e.getMessage());
+				e.getStackTrace();
+				return new ResponseEntity<SerieResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}else {
+			log.error("Error, Serie not found");			
+			return new ResponseEntity<SerieResponseRest>(response, HttpStatus.NOT_FOUND);
+		}
+		
+		
+		
+		return new ResponseEntity<SerieResponseRest>(response, HttpStatus.OK);
 	}
 
 
