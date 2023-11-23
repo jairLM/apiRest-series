@@ -83,6 +83,7 @@ public class SerieServiceImpl implements ISerieService {
 		SerieResponseRest response = new SerieResponseRest();
 		
 		try {
+			serieDao.save(serie);
 			list.add(serie);
 			response.getSerieResponse().setSerie(list);
 			response.setMetadata("Response OK", "00", "successful response");			

@@ -2,6 +2,7 @@ package com.company.backend.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.company.backend.dao.UserRepository;
 
+@Configuration
 public class SecurityBeansInjector {
 
 	@Autowired
@@ -31,8 +33,8 @@ public class SecurityBeansInjector {
 	public AuthenticationProvider authenticationProvider() {
 	
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setUserDetailsService(null);
-		provider.setPasswordEncoder(null);
+		provider.setUserDetailsService(userDetailsService());
+		provider.setPasswordEncoder(passwordEncoder());
 		return provider;
 		
 	}
@@ -44,7 +46,7 @@ public class SecurityBeansInjector {
 	
 	@Bean UserDetailsService userDetailsService() {
 		return username -> {
-			return userRepository.findByUserName(username)
+			return userRepository.findByUsername(username)
 						.orElseThrow(()-> new RuntimeException("user not found"));
 			
 		};
