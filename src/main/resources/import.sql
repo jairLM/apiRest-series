@@ -1,0 +1,2 @@
+insert into `user`(username, name, password, role) values ('lmarquez', 'Luis Marquez', '$2a$10$bfx5mUApkdKhg0nW.WEo3.VLh.mnqngN8ho1jHy4C/wFk3ecpHt0e', 'CUSTOMER');
+insert into `user`(username, name, password, role) values ('jairsz', 'Luis Jair Lopez Murillo', '$2a$10$LO840mwmKs/PfzQrwIb3YewVvHGin3jZ.DwaLwp6wG87xG9x0gjPm', 'ADMINISTRATOR');

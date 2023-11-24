@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.company.backend.util.Permission;
+
 @Configuration
 public class HttpConfigSecurity {
 
@@ -25,11 +27,14 @@ public class HttpConfigSecurity {
 			.authenticationProvider(authenticationProvider)
 			.authorizeHttpRequests(authConfig -> {
 				
-				authConfig
+				authConfig					
 					.requestMatchers(HttpMethod.GET, "/v1/series").permitAll()
-					.requestMatchers(HttpMethod.POST, "/v1/series").permitAll()
 					.requestMatchers(HttpMethod.PUT, "/v1/series/**").permitAll()
 					.requestMatchers(HttpMethod.DELETE, "/v1/series/**").permitAll();
+				
+				authConfig.requestMatchers(HttpMethod.POST,"/auth/**").permitAll();
+				
+				authConfig.requestMatchers(HttpMethod.POST, "/v1/series").hasAuthority(Permission.SAVE_ONE_SERIE.name())
 					
 					;
 				
