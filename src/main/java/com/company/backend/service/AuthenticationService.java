@@ -31,7 +31,7 @@ public class AuthenticationService {
 	
 	public AuthenticationResponse login(AuthenticationRequest authRequest) {
 		
-		log.info("Iniciando login");
+		log.info("Iniciando login del token");
 		
 		
 		UsernamePasswordAuthenticationToken authToken 

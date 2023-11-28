@@ -83,8 +83,6 @@ public class JwtService {
 		
 	}
 
-
-
 	private Claims extractAllClaims(String jwt) {
 		return Jwts.parser().verifyWith((SecretKey) generatedKey()).build()
 		.parseSignedClaims(jwt).getPayload();
