@@ -5,12 +5,15 @@ import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 
+import javax.crypto.SecretKey;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.company.backend.model.User;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.JwtBuilder.BuilderClaims;
@@ -35,9 +38,7 @@ public class JwtService {
 	public String generateToken(User user, Map<String, Object> extraClaims) {
 		
 		Date issuedAt = new Date(System.currentTimeMillis());
-		Date expiration = new Date(issuedAt.getTime() + (EXPIRATION_MINUTES * 60 * 1000));
-		BuilderHeader header = null;
-		JwtBuilder headerBuilt = (JwtBuilder) header.add("typ", "JWT"); 
+		Date expiration = new Date(issuedAt.getTime() + (EXPIRATION_MINUTES * 60 * 1000)); 
 		
 		String jwt = Jwts.builder()
 				.claims(extraClaims)
@@ -73,6 +74,20 @@ public class JwtService {
 		
 		return Keys.hmacShaKeyFor(secretAsBytes);
 		
+	}
+
+
+
+	public String extractUsername(String jwt) {
+		return extractAllClaims(jwt).getSubject();
+		
+	}
+
+
+
+	private Claims extractAllClaims(String jwt) {
+		return Jwts.parser().verifyWith((SecretKey) generatedKey()).build()
+		.parseSignedClaims(jwt).getPayload();
 	}
 
 }
