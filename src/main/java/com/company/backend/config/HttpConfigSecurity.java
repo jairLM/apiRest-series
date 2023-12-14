@@ -40,7 +40,7 @@ public class HttpConfigSecurity {
 					.requestMatchers(HttpMethod.POST,"/auth/**").permitAll();
 				
 				authConfig.requestMatchers(HttpMethod.POST, "/v1/series").hasAuthority(Permission.SAVE_ONE_SERIE.name());
-				authConfig.requestMatchers(HttpMethod.GET, "/v1/series").hasAnyAuthority(Permission.READ_ALL_SERIES.name());
+				authConfig.requestMatchers(HttpMethod.GET, "/v1/series").permitAll();
 					;
 				
 			});
