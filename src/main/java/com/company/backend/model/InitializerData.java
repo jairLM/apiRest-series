@@ -27,16 +27,16 @@ public class InitializerData implements CommandLineRunner {
 		Serie serie1 = new Serie();
 		
 		serie.setId((long) 1);
-		serie.setName("Pelicula");
-		serie.setRating(4);
-		serie.setReleaseYear("2014");
-		serie.setDescription("Buena peli");
+		serie.setName("Breaking Bad");
+		serie.setRating(5);
+		serie.setReleaseYear("2008");
+		serie.setDescription("Excelente");
 		
 		
-		serie1.setName("Pelicula 2");
-		serie1.setRating(5);
-		serie1.setReleaseYear("2017");
-		serie1.setDescription("Mala peli");
+		serie1.setName("Arcane");
+		serie1.setRating(4);
+		serie1.setReleaseYear("2021");
+		serie1.setDescription("Buena");
 		
 		serieDao.save(serie);
 		serieDao.save(serie1);
