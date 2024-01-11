@@ -1,5 +1,6 @@
 package com.company.backend.config;
 
+import io.swagger.v3.oas.models.PathItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,24 +27,24 @@ public class HttpConfigSecurity {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		http
-		
+
 			.csrf(csrfConfigurer -> csrfConfigurer.disable())
 			.sessionManagement(sessionManConfig -> sessionManConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authenticationProvider(authenticationProvider)
 			.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
 			.authorizeHttpRequests(authConfig -> {
-				
-				authConfig					
-					
+
+				authConfig
 					.requestMatchers(HttpMethod.PUT, "/v1/series/**").permitAll()
 					.requestMatchers(HttpMethod.DELETE, "/v1/series/**").permitAll()
-					.requestMatchers(HttpMethod.POST,"/auth/**").permitAll();
-				
-				authConfig.requestMatchers(HttpMethod.POST, "/v1/series").hasAuthority(Permission.SAVE_ONE_SERIE.name());
-				authConfig.requestMatchers(HttpMethod.GET, "/v1/series").permitAll();
-					;
-				
+					.requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
+					.requestMatchers(HttpMethod.GET, "/v1/series").permitAll()
+					.requestMatchers(HttpMethod.POST, "/v1/series").hasAuthority(Permission.SAVE_ONE_SERIE.name())
+					.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll();
+
+
 			});
+
 		
 		
 		
